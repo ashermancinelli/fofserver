@@ -41,7 +41,7 @@ make docker-login
 Build, tag, and push the image:
 
 ```sh
-make push DOCKERHUB_USER=your-dockerhub-user
+make push
 ```
 
 Override the pushed tag when needed:
@@ -50,12 +50,18 @@ Override the pushed tag when needed:
 make push DOCKERHUB_USER=your-dockerhub-user REMOTE_TAG=v1
 ```
 
+Pull the published image from Docker Hub:
+
+```sh
+make pull-image
+```
+
 ## Run On EC2
 
 Install Podman on the instance, then run the published image:
 
 ```sh
-make run-remote DOCKERHUB_USER=your-dockerhub-user
+make run-remote
 ```
 
 Open these inbound ports in the EC2 security group:

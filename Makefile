@@ -1,12 +1,12 @@
 IMAGE ?= fof-server:local
 REGISTRY ?= docker.io
-DOCKERHUB_USER ?=
+DOCKERHUB_USER ?= ashermancinelli
 REMOTE_IMAGE ?= $(REGISTRY)/$(DOCKERHUB_USER)/fof-server
 REMOTE_TAG ?= latest
 SRCDS_MAP ?= fof_fistful
 SRCDS_MAXPLAYERS ?= 20
 
-.PHONY: build test test-mods run docker-login tag push pull run-remote clean
+.PHONY: build test test-mods run docker-login tag push pull pull-image run-remote clean
 
 build:
 	podman build --format docker -t $(IMAGE) .
@@ -40,6 +40,8 @@ push: build tag
 pull:
 	@test -n "$(DOCKERHUB_USER)" || (echo "Set DOCKERHUB_USER, for example: make pull DOCKERHUB_USER=yourname" >&2; exit 1)
 	podman pull $(REMOTE_IMAGE):$(REMOTE_TAG)
+
+pull-image: pull
 
 run-remote: pull
 	podman run -d \
