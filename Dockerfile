@@ -42,7 +42,7 @@ RUN steamcmd \
 ARG MMSOURCE_URL=https://github.com/alliedmodders/metamod-source/releases/download/1.12.0.1224/mmsource-1.12.0-git1224-linux.tar.gz
 ARG SOURCEMOD_URL=https://github.com/alliedmodders/sourcemod/releases/download/1.12.0.7239/sourcemod-1.12.0-git7239-linux.tar.gz
 ARG STEAMWORKS_URL=https://users.alliedmods.net/~kyles/builds/SteamWorks/SteamWorks-git132-linux.tar.gz
-ARG FOF_GUNGAME_URL=https://github.com/connorrichlen/fof_gungame/archive/refs/tags/2.0.2.tar.gz
+ARG FOF_GUNGAME_URL=https://github.com/CrimsonTautology/sm-gungame-fof/releases/download/v1.10.0/sm-gungame-fof-v1.10.0.tar.gz
 
 ADD --chown=steam:steam ${MMSOURCE_URL} /tmp/mmsource.tar.gz
 ADD --chown=steam:steam ${SOURCEMOD_URL} /tmp/sourcemod.tar.gz
@@ -52,13 +52,8 @@ ADD --chown=steam:steam ${FOF_GUNGAME_URL} /tmp/fof-gungame.tar.gz
 RUN tar -xzf /tmp/mmsource.tar.gz -C "${SERVER_DIR}/fof" && \
     tar -xzf /tmp/sourcemod.tar.gz -C "${SERVER_DIR}/fof" && \
     tar -xzf /tmp/steamworks.tar.gz -C "${SERVER_DIR}/fof" && \
-    mkdir -p /tmp/fof-gungame \
-      "${SERVER_DIR}/fof/addons/sourcemod/configs" \
-      "${SERVER_DIR}/fof/addons/sourcemod/plugins" && \
-    tar -xzf /tmp/fof-gungame.tar.gz -C /tmp/fof-gungame --strip-components=1 && \
-    cp -R /tmp/fof-gungame/configs/. "${SERVER_DIR}/fof/addons/sourcemod/configs/" && \
-    cp -R /tmp/fof-gungame/plugins/. "${SERVER_DIR}/fof/addons/sourcemod/plugins/" && \
-    rm -rf /tmp/mmsource.tar.gz /tmp/sourcemod.tar.gz /tmp/steamworks.tar.gz /tmp/fof-gungame.tar.gz /tmp/fof-gungame
+    tar -xzf /tmp/fof-gungame.tar.gz -C "${SERVER_DIR}/fof" addons && \
+    rm -rf /tmp/mmsource.tar.gz /tmp/sourcemod.tar.gz /tmp/steamworks.tar.gz /tmp/fof-gungame.tar.gz
 
 COPY --chown=steam:steam server/fof/ /opt/fof/fof/
 

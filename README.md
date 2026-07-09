@@ -62,5 +62,6 @@ Current upstream references:
 
 - MetaMod:Source stable branch is `1.12`.
 - SourceMod stable builds are published at `sourcemod.net`.
-- `connorrichlen/fof_gungame` is an updated FoF GunGame plugin requiring
-  SourceMod `1.10` or later and the SteamWorks extension.
+- `CrimsonTautology/sm-gungame-fof` provides the FoF GunGame plugin version
+  `1.10.0`, matching known public GunGame servers. It requires SourceMod
+  `1.10` or later and the SteamWorks extension.
