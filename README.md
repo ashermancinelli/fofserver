@@ -30,6 +30,43 @@ Run a mod install smoke test:
 make test-mods
 ```
 
+## Publish
+
+Log in to Docker Hub:
+
+```sh
+make docker-login
+```
+
+Build, tag, and push the image:
+
+```sh
+make push DOCKERHUB_USER=your-dockerhub-user
+```
+
+Override the pushed tag when needed:
+
+```sh
+make push DOCKERHUB_USER=your-dockerhub-user REMOTE_TAG=v1
+```
+
+## Run On EC2
+
+Install Podman on the instance, then run the published image:
+
+```sh
+make run-remote DOCKERHUB_USER=your-dockerhub-user
+```
+
+Open these inbound ports in the EC2 security group:
+
+- `27015/udp`
+- `27015/tcp`
+- `27020/udp`
+- `27005/udp`
+
+Clients primarily connect through `27015/udp`.
+
 Useful runtime variables:
 
 - `SRCDS_PORT`: game port, default `27015`
