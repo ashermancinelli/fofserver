@@ -24,6 +24,12 @@ Run a quick container smoke test:
 make test
 ```
 
+Run a mod install smoke test:
+
+```sh
+make test-mods
+```
+
 Useful runtime variables:
 
 - `SRCDS_PORT`: game port, default `27015`
@@ -36,25 +42,25 @@ Useful runtime variables:
 Persist or mount these paths for custom server state:
 
 - `/opt/fof/fof/cfg`
-- `/opt/fof/fof/addons`
 - `/opt/fof/fof/logs`
 
-## SourceMod/GunGame Plan
+Do not mount `/opt/fof/fof/addons` unless you intend to replace the baked
+MetaMod/SourceMod/GunGame install.
 
-GunGame requires the normal Source server plugin chain:
+## SourceMod/GunGame
+
+The image bakes in the normal Source server plugin chain after the SteamCMD
+game install layer:
 
 - MetaMod:Source installed under `/opt/fof/fof/addons`
 - SourceMod installed under `/opt/fof/fof/addons`
-- A FoF GunGame SourceMod plugin plus its configs under `addons/sourcemod`
-- Server config files under `/opt/fof/fof/cfg`
+- SteamWorks installed under `/opt/fof/fof/addons/sourcemod/extensions`
+- FoF GunGame plugin and configs under `addons/sourcemod`
+- Server config overlay from `server/fof`
 
 Current upstream references:
 
 - MetaMod:Source stable branch is `1.12`.
 - SourceMod stable builds are published at `sourcemod.net`.
 - `connorrichlen/fof_gungame` is an updated FoF GunGame plugin requiring
-  SourceMod `1.10` or later.
-
-The clean next step is to add pinned download URLs/checksums for MetaMod and
-SourceMod, then copy a local `server/fof` overlay into `/opt/fof/fof` so plugins,
-configs, and admin lists are versioned in this repo.
+  SourceMod `1.10` or later and the SteamWorks extension.
