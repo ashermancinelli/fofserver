@@ -8,10 +8,10 @@ build:
 	podman build --format docker -t $(IMAGE) .
 
 test: build
-	podman run --rm --entrypoint /bin/sh $(IMAGE) -lc 'id && test -x ./srcds_run && test -d ./fof && test -d ./fof/cfg && echo ok'
+	podman run --rm --no-healthcheck --entrypoint /bin/sh $(IMAGE) -lc 'id && test -x ./srcds_run && test -d ./fof && test -d ./fof/cfg && echo ok'
 
 run: build
-	podman run --rm -it \
+	podman run --rm -it --no-healthcheck \
 		-p 27015:27015/udp \
 		-p 27015:27015/tcp \
 		-p 27020:27020/udp \
