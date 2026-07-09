@@ -5,7 +5,7 @@ Podman/Docker image for a Linux Fistful of Frags dedicated server.
 ## Build
 
 ```sh
-podman build --format docker -t fof-server:local .
+make build
 ```
 
 The server app is installed with SteamCMD app `295230`. The Dockerfile forces
@@ -15,14 +15,13 @@ the Linux Steam platform because anonymous install can otherwise fail with
 ## Run Locally
 
 ```sh
-podman run --rm -it \
-  -p 27015:27015/udp \
-  -p 27015:27015/tcp \
-  -p 27020:27020/udp \
-  -p 27005:27005/udp \
-  -e SRCDS_MAP=fof_fistful \
-  -e SRCDS_MAXPLAYERS=20 \
-  fof-server:local
+make run
+```
+
+Run a quick container smoke test:
+
+```sh
+make test
 ```
 
 Useful runtime variables:
