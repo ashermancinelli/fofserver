@@ -5,7 +5,7 @@ Podman/Docker image for a Linux Fistful of Frags dedicated server.
 ## Build
 
 ```sh
-podman build -t fof-server:local .
+podman build --format docker -t fof-server:local .
 ```
 
 The server app is installed with SteamCMD app `295230`. The Dockerfile forces
